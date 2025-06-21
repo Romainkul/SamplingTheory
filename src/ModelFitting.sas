@@ -7,6 +7,7 @@ proc surveyreg data=bhisdata.mi_bhis_final;
   by _Imputation_;                 /* loop over each imputation */
   cluster HH;                      /* account for household clustering */
   weight WFIN;                     /* apply survey weight */
+  strata PROVINCE;
   class SGP EDU3(ref='2') SEX TA2 AGE7(ref='3') FA3(ref='2'); /* declare categorical predictors */
   /* fit model and request parameter estimates */
   model LNVOEG_scaled = 
