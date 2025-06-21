@@ -30,7 +30,7 @@ run;
 data bhis_prep;
   set bhisdata.bhis;
   keep GHQ12 BMI LNVOEG
-       WFIN HH AGE7 EDU3 SEX FA3 TA2 SGP;
+       WFIN HH AGE7 EDU3 SEX FA3 TA2 SGP PROVINCE;
 run;
 
 /*-----------------------------------------
@@ -66,7 +66,7 @@ proc mi data=bhis_prep
   /* additional settings */
   fcs outiter=mi_bhis_out plots=trace(mean std); 
   var GHQ12 BMI LNVOEG
-      WFIN HH AGE7 EDU3 SEX FA3 TA2 SGP;
+      WFIN HH AGE7 EDU3 SEX FA3 TA2 SGP PROVINCE;
 run;
 
 ods graphics off;
@@ -111,5 +111,5 @@ data bhisdata.mi_bhis_final;
     _Imputation_
     GHQ12_scaled BMI_scaled LNVOEG_scaled
     GHQ12_2 BMI2
-    WFIN HH AGE7 EDU3 SEX FA3 TA2 SGP;
+    WFIN HH AGE7 EDU3 SEX FA3 TA2 SGP PROVINCE;
 run;
