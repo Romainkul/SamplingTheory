@@ -25,7 +25,7 @@ proc format;
 run;
 
 /*-----------------------------------------
-  2. Prepare Raw Data for MI (no scaling yet)
+  2. Prepare Raw Data for MI 
 -----------------------------------------*/
 data bhis_prep;
   set bhisdata.bhis;
@@ -34,7 +34,7 @@ data bhis_prep;
 run;
 
 /*-----------------------------------------
-  3. Descriptive & Missing‐value Counts (raw)
+  3. Descriptive & Missing‐value Counts 
 -----------------------------------------*/
 proc means data=bhis_prep n mean std min max nmiss;
   var GHQ12 BMI LNVOEG;
@@ -60,10 +60,10 @@ proc mi data=bhis_prep
   /* PMM for continuous */
   fcs regpmm(GHQ12 BMI LNVOEG);
 
-  /* logistic for binary */
+  /* logistic for categorical */
   fcs logistic(SGP SEX TA2 EDU3 FA3);
 	
-  /* additional settings */
+  /* plots */
   fcs outiter=mi_bhis_out plots=trace(mean std); 
   var GHQ12 BMI LNVOEG
       WFIN HH AGE7 EDU3 SEX FA3 TA2 SGP PROVINCE;
@@ -106,7 +106,6 @@ data bhisdata.mi_bhis_final;
     BMI_scaled    6.3
     LNVOEG_scaled 6.3;
 
-  /* keep only what you need for downstream modeling */
   keep
     _Imputation_
     GHQ12_scaled BMI_scaled LNVOEG_scaled
